@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/SphereComponent.h"
-#include "InteractableActor.generated.h"
+#include "CrankActor.generated.h"
 
 UCLASS()
-class PROJECTLIGHTHOUSE_API AInteractableActor : public AActor
+class PROJECTLIGHTHOUSE_API ACrankActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AInteractableActor();
+	ACrankActor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,9 +23,4 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Game")
-	USphereComponent* InteractSphereComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Game")
-	USphereComponent* InteractionRangeSphereComponent;
 };
