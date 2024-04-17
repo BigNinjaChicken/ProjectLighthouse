@@ -204,7 +204,7 @@ void APlayerCharacter::Interact(const FInputActionValue& Value)
 	}
 
 	FHitResult HitResult;
-	FVector Start = PlayerController->GetPawn()->GetActorLocation();
+	FVector Start = Camera->GetComponentLocation();
 	FVector End = Start + PlayerController->GetControlRotation().Vector() * 300.0f; // Adjust the raycast length as needed
 
 	// Log the start and end vectors of the raycast

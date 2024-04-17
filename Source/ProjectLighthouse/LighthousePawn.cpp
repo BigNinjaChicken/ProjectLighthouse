@@ -102,17 +102,30 @@ void ALighthousePawn::Move(const FInputActionValue& Value)
 {
 	if (bDisableMovement) return;
 
-    FVector2D MovementVector = Value.Get<FVector2D>();
-
+	FVector2D MovementVector = Value.Get<FVector2D>();
 	MovementVector *= RotationSpeed;
 
-    if (Controller != nullptr)
-    {
-        SpringArm->AddRelativeRotation(FRotator(MovementVector.Y, 0.0f, 0.0f));
-        AddActorLocalRotation(FRotator(0, MovementVector.X, 0.0f));
-		LightMesh->AddRelativeRotation(FRotator(MovementVector.Y, 0.0f, 0.0f));
-    }
+	if (Controller)
+	{
+		// Calculate potential new rotation for SpringArm
+		FRotator NewSpringArmRotation = SpringArm->GetRelativeRotation() + FRotator(MovementVector.Y, 0.0f, 0.0f);
+		NewSpringArmRotation.Pitch = FMath::Clamp(NewSpringArmRotation.Pitch, MinAngle, MaxAngle);  // Clamping the pitch rotation
+
+		// Update SpringArm rotation
+		SpringArm->SetRelativeRotation(NewSpringArmRotation);
+
+		// Calculate potential new rotation for LightMesh
+		FRotator NewLightMeshRotation = LightMesh->GetRelativeRotation() + FRotator(MovementVector.Y, 0.0f, 0.0f);
+		NewLightMeshRotation.Pitch = FMath::Clamp(NewLightMeshRotation.Pitch, MinAngle, MaxAngle);  // Clamping the pitch rotation
+
+		// Update LightMesh rotation
+		LightMesh->SetRelativeRotation(NewLightMeshRotation);
+
+		// Rotate the actor itself
+		AddActorLocalRotation(FRotator(0, MovementVector.X, 0.0f));
+	}
 }
+
 
 void ALighthousePawn::Shoot(const FInputActionValue& Value)
 {

@@ -64,7 +64,7 @@ public:
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		UInputAction* MoveAction;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		UInputAction* InteractAction;
 
@@ -129,10 +129,16 @@ public:
 	FVector StartingCameraLocation;
 
 	bool bDisableMovement = false;
-	
+
 	UPROPERTY(EditAnywhere, Category = "Raycast")
 		float RaycastRadius = 10.0f;
 
 	UPROPERTY(EditAnywhere, Category = "Raycast")
 		float RaycastRange = 1000.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rotation Limits")
+		float MinAngle = -45.0f; // Minimum angle in degrees
+
+	UPROPERTY(EditAnywhere, Category = "Rotation Limits")
+		float MaxAngle = 45.0f; // Maximum angle in degrees
 };
